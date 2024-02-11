@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container container-with-border">
+        <h1>Image Comparison</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="file-upload">
+                <label for="file1">Image 1:</label>
+                {{ form.file1 }}
+            </div>
+            <div class="file-upload">
+                <label for="file2">Image 2:</label>
+                {{ form.file2 }}
+            </div>
+            <div class="submit-btn">
+                {{ form.submit }}
+            </div>
+        </form>
+    
+        {% if result_image %}
+            <div class="result-image">
+                <h2>Result Image:</h2>
+                {% if similarity is not none %}
+                <div class="result">
+                    Similarity Score: {{ similarity }}
+                </div>
+                {% endif %}
+                <img src="data:image/png;base64,{{ result_image }}" alt="Result Image">
+            </div>
+        {% endif %}
+    </div>    
+</body>
+</html>
